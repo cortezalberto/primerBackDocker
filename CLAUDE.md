@@ -77,8 +77,11 @@ docker run -d --name usuarios-api -p 8080:8080 \
 ```
 
 **Docker Files:**
-- `Dockerfile`: Multi-stage build (Gradle builder + JRE runtime)
+- `Dockerfile`: Multi-stage build (Alpine + OpenJDK 17 for build, openjdk:17-alpine for runtime). Sets `SPRING_PROFILES_ACTIVE=prod` by default.
 - `.dockerignore`: Excludes unnecessary files from Docker context
+
+**Important for Cloud Deployment:**
+The Dockerfile uses the `prod` profile which configures `server.port=${PORT:8080}`. This allows the application to use dynamic ports required by cloud platforms (Render, Heroku, Railway, etc.) that set the `PORT` environment variable. If `PORT` is not set, it defaults to 8080.
 
 ## Architecture
 
@@ -109,9 +112,10 @@ H2 in-memory database configured in `application.properties`:
 - Entity constraints: All fields are `nullable=false`, email has `unique=true`, lengths defined (nombre: 100, email/password: 255)
 
 **Spring Profiles:**
-Two configuration profiles available:
-- **default** (production): Minimal logging, H2 console disabled, secure defaults
+Three configuration profiles available:
+- **default**: Minimal logging, H2 console disabled, uses port 8080
 - **dev** (development): SQL logs enabled, H2 console enabled, configured via `application-dev.properties`
+- **prod** (production/cloud): Configured via `application-prod.properties`, uses dynamic port via `${PORT:8080}` for cloud platforms (Render, Heroku, etc.)
 
 ## API Documentation
 

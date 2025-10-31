@@ -28,6 +28,9 @@ WORKDIR /app
 # Copiar el JAR compilado desde la etapa de build
 COPY --from=build /app/build/libs/usuarios-api.jar app.jar
 
+# Variables de entorno para producción
+ENV SPRING_PROFILES_ACTIVE=prod
+
 # Comando de inicio para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "./app.jar"]
 
