@@ -24,8 +24,9 @@ services:
 
     # Variables de entorno
     envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod  # Cambia a 'dev' si necesitas logs SQL y consola H2
+      # Perfil de Spring deshabilitado - usa configuración por defecto de application.properties
+      # - key: SPRING_PROFILES_ACTIVE
+      #   value: prod
 
       - key: JPA_SHOW_SQL
         value: false  # Cambia a 'true' para ver queries SQL en logs
