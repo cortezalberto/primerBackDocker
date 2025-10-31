@@ -76,13 +76,9 @@ docker run -d --name usuarios-api -p 8080:8080 \
   usuarios-api:latest
 ```
 
-**Deploy to Render:**
-See complete guide in `DOCKER_DEPLOY.md` for local testing and cloud deployment instructions.
-
-**Files:**
+**Docker Files:**
 - `Dockerfile`: Multi-stage build (Gradle builder + JRE runtime)
 - `.dockerignore`: Excludes unnecessary files from Docker context
-- `render.yaml`: Render.com deployment configuration
 
 ## Architecture
 
